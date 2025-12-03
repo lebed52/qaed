@@ -1,13 +1,229 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TestingIT - QA Automation Practice</title>
-    <meta http-equiv="refresh" content="0; url=/sandbox/">
-</head>
-<body>
-    <p>Redirecting to sandbox...</p>
-    <p>If you are not redirected, <a href="/sandbox/">click here</a>.</p>
-</body>
+    <meta
+      name="description"
+      content="Интерактивная песочница для практики автоматизации тестирования. 60+ упражнений для Playwright, Selenium, Cypress."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: #0a0a0f;
+        color: #f1f5f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        text-align: center;
+        padding: 2rem;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(99, 102, 241, 0.15),
+            transparent 50%
+          ),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15), transparent 50%),
+          #0a0a0f;
+      }
+
+      .container {
+        max-width: 600px;
+      }
+
+      .logo {
+        font-size: 5rem;
+        margin-bottom: 1.5rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #a855f7 50%, #6366f1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        font-size: 1.3rem;
+        color: #94a3b8;
+        margin-bottom: 2.5rem;
+        line-height: 1.5;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 1.2rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 3rem;
+        text-align: left;
+      }
+
+      .feature {
+        background: #16161d;
+        border: 1px solid #2d2d3a;
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+
+      .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .feature p {
+        font-size: 0.9rem;
+        color: #94a3b8;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        background: #16161d;
+        border: 1px solid #2d2d3a;
+        border-radius: 50px;
+        color: #f1f5f9;
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        transform: translateY(-2px);
+        border-color: #6366f1;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .logo {
+          font-size: 4rem;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">🧪</div>
+      <h1>TestingIT</h1>
+      <p class="subtitle">
+        Интерактивная песочница для практики автоматизации тестирования
+      </p>
+
+      <a href="/sandbox/" class="cta-button"> 🚀 Открыть песочницу </a>
+
+      <div class="features">
+        <div class="feature">
+          <div class="feature-icon">📝</div>
+          <h3>60+ задач</h3>
+          <p>Все типы элементов</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>3 уровня</h3>
+          <p>Easy → Hard</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🧰</div>
+          <h3>data-testid</h3>
+          <p>Готово к тестам</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🔓</div>
+          <h3>Open Source</h3>
+          <p>GitHub</p>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <a
+          href="https://www.youtube.com/@qabigtech"
+          target="_blank"
+          class="social-link"
+        >
+          <span>📺</span>
+          <span>YouTube</span>
+        </a>
+        <a href="https://t.me/qabigtech" target="_blank" class="social-link">
+          <span>📱</span>
+          <span>Telegram</span>
+        </a>
+        <a
+          href="https://t.me/+NT-IOeLALxszN2Zi"
+          target="_blank"
+          class="social-link"
+        >
+          <span>💬</span>
+          <span>Чат QA</span>
+        </a>
+      </div>
+    </div>
+  </body>
 </html>
