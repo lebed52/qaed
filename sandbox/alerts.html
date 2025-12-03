@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔔 Alerts & Dialogs - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🔔 Alerts & Dialogs</span>
+    </nav>
+
+    <main class="page-container">
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>JavaScript Alerts</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <p class="exercise-desc">Работа с стандартными диалогами JavaScript</p>
+        <div class="btn-group">
+          <button
+            class="btn btn-primary"
+            data-testid="btn-alert"
+            onclick="showAlert()"
+          >
+            📢 Alert
+          </button>
+          <button
+            class="btn btn-warning"
+            data-testid="btn-confirm"
+            onclick="showConfirm()"
+          >
+            ❓ Confirm
+          </button>
+          <button
+            class="btn btn-info"
+            data-testid="btn-prompt"
+            onclick="showPrompt()"
+          >
+            ✏️ Prompt
+          </button>
+        </div>
+        <div
+          id="alert-result"
+          class="result-box hidden"
+          data-testid="alert-result"
+        ></div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

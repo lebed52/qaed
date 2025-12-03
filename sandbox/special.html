@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Особые сценарии - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="page-nav">
+        <a href="index.html" class="back-link">← На главную</a>
+        <span class="page-title">🎭 Особые сценарии</span>
+    </nav>
+
+    <main class="page-container">
+        <!-- A/B Testing -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>1. A/B Testing</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Контент меняется случайно при каждой загрузке. Обновите страницу несколько раз.</p>
+            <div id="ab-test-container" class="ab-container" data-testid="ab-container"></div>
+        </div>
+
+        <!-- Form Authentication -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>2. Form Authentication</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Логин: <code>admin</code>, Пароль: <code>admin123</code></p>
+            <form id="login-form" class="form-grid">
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Username" data-testid="login-username">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Password" data-testid="login-password">
+                </div>
+                <button type="submit" class="btn btn-primary" data-testid="login-submit">🔐 Login</button>
+            </form>
+            <div id="login-flash" class="flash-message hidden" data-testid="login-flash"></div>
+        </div>
+
+        <!-- Broken Images -->
+        <div class="exercise" data-difficulty="easy">
+            <div class="exercise-header">
+                <h3>3. Broken Images</h3>
+                <span class="difficulty easy">Easy</span>
+            </div>
+            <p class="exercise-desc">Найдите сломанные изображения на странице</p>
+            <div class="broken-images" data-testid="broken-images">
+                <img src="https://picsum.photos/150/150?random=1" alt="Image 1" data-testid="img-valid-1">
+                <img src="https://invalid-url.test/broken.jpg" alt="Broken Image 1" data-testid="img-broken-1">
+                <img src="https://picsum.photos/150/150?random=2" alt="Image 2" data-testid="img-valid-2">
+                <img src="https://another-invalid.test/notfound.png" alt="Broken Image 2" data-testid="img-broken-2">
+            </div>
+        </div>
+
+        <!-- Challenging DOM -->
+        <div class="exercise" data-difficulty="hard">
+            <div class="exercise-header">
+                <h3>4. Challenging DOM</h3>
+                <span class="difficulty hard">Hard</span>
+            </div>
+            <p class="exercise-desc">ID и классы кнопок меняются при каждом клике. Используйте более стабильные локаторы!</p>
+            <div class="challenging-dom" data-testid="challenging-dom">
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="" data-testid="challenge-btn-1" onclick="shuffleChallengingDOM()">Button A</button>
+                    <button class="btn btn-success" id="" data-testid="challenge-btn-2" onclick="shuffleChallengingDOM()">Button B</button>
+                    <button class="btn btn-warning" id="" data-testid="challenge-btn-3" onclick="shuffleChallengingDOM()">Button C</button>
+                </div>
+                <p id="challenge-info">Нажмите любую кнопку - ID изменятся!</p>
+                <table class="data-table" id="challenge-table">
+                    <thead>
+                        <tr><th>Lorem</th><th>Ipsum</th><th>Dolor</th><th>Sit</th><th>Amet</th><th>Action</th></tr>
+                    </thead>
+                    <tbody id="challenge-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Disappearing Elements -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>5. Disappearing Elements</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Некоторые элементы меню появляются/исчезают случайно. Обновляйте страницу!</p>
+            <nav class="disappearing-nav" id="disappearing-nav" data-testid="disappearing-nav"></nav>
+        </div>
+
+        <!-- Entry Ad / Exit Intent -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>6. Entry Ad & Exit Intent</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Попапы появляются при входе и при попытке покинуть страницу</p>
+            <div class="btn-group">
+                <button class="btn btn-primary" data-testid="trigger-entry-ad" onclick="showEntryAd()">📢 Показать Entry Ad</button>
+                <button class="btn btn-warning" data-testid="trigger-exit-intent" onclick="showExitIntent()">🚪 Показать Exit Intent</button>
+            </div>
+        </div>
+
+        <!-- Floating Menu -->
+        <div class="exercise" data-difficulty="easy">
+            <div class="exercise-header">
+                <h3>7. Floating Menu</h3>
+                <span class="difficulty easy">Easy</span>
+            </div>
+            <p class="exercise-desc">Меню остаётся видимым при прокрутке (см. правый нижний угол)</p>
+            <button class="btn btn-primary" data-testid="toggle-floating" onclick="toggleFloatingMenu()">Вкл/Выкл плавающее меню</button>
+        </div>
+
+        <!-- Geolocation -->
+        <div class="exercise" data-difficulty="hard">
+            <div class="exercise-header">
+                <h3>8. Geolocation</h3>
+                <span class="difficulty hard">Hard</span>
+            </div>
+            <p class="exercise-desc">Запросить геолокацию пользователя</p>
+            <button class="btn btn-primary" data-testid="get-geolocation" onclick="getGeolocation()">📍 Получить координаты</button>
+            <div id="geo-result" class="result-box hidden" data-testid="geo-result"></div>
+        </div>
+
+        <!-- Notification Messages -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>9. Notification Messages</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Уведомления появляются и исчезают. Текст может меняться!</p>
+            <div class="btn-group">
+                <button class="btn btn-success" data-testid="toast-success" onclick="showToast('success')">✓ Success</button>
+                <button class="btn btn-danger" data-testid="toast-error" onclick="showToast('error')">✕ Error</button>
+                <button class="btn btn-info" data-testid="toast-info" onclick="showToast('info')">ℹ Info</button>
+                <button class="btn btn-warning" data-testid="toast-random" onclick="showToast('random')">🎲 Random</button>
+            </div>
+        </div>
+
+        <!-- Status Codes -->
+        <div class="exercise" data-difficulty="medium">
+            <div class="exercise-header">
+                <h3>10. Status Codes</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p class="exercise-desc">Имитация разных HTTP статус кодов</p>
+            <div class="status-codes" data-testid="status-codes">
+                <button class="btn btn-success" data-testid="status-200" onclick="showStatusCode(200)">200 OK</button>
+                <button class="btn btn-warning" data-testid="status-301" onclick="showStatusCode(301)">301 Redirect</button>
+                <button class="btn btn-warning" data-testid="status-404" onclick="showStatusCode(404)">404 Not Found</button>
+                <button class="btn btn-danger" data-testid="status-500" onclick="showStatusCode(500)">500 Server Error</button>
+            </div>
+            <div id="status-result" class="result-box hidden" data-testid="status-result"></div>
+        </div>
+
+        <!-- Typos -->
+        <div class="exercise" data-difficulty="easy">
+            <div class="exercise-header">
+                <h3>11. Typos</h3>
+                <span class="difficulty easy">Easy</span>
+            </div>
+            <p class="exercise-desc">Найдите опечатки в тексте ниже</p>
+            <div class="typos-text" data-testid="typos-text">
+                <p>Sometimes you'll see a typo, other times you won't.</p>
+                <p id="typo-paragraph"></p>
+            </div>
+        </div>
+
+        <!-- Nested Frames -->
+        <div class="exercise" data-difficulty="hard">
+            <div class="exercise-header">
+                <h3>12. Nested Frames</h3>
+                <span class="difficulty hard">Hard</span>
+            </div>
+            <p class="exercise-desc">Работа с вложенными фреймами (frame внутри frame)</p>
+            <iframe src="nested-frame-top.html" class="nested-frame-outer" data-testid="nested-frame-outer"></iframe>
+        </div>
+    </main>
+
+    <!-- Entry Ad Modal -->
+    <div id="entry-ad-modal" class="modal" data-testid="entry-ad-modal">
+        <div class="modal-content ad-modal">
+            <div class="modal-header">
+                <h3>🎉 Специальное предложение!</h3>
+            </div>
+            <div class="modal-body">
+                <p>Это модальное окно появляется при входе на страницу.</p>
+                <p>В реальных приложениях здесь может быть реклама или важное объявление.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-testid="close-entry-ad" onclick="closeModal('entry-ad-modal')">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exit Intent Modal -->
+    <div id="exit-intent-modal" class="modal" data-testid="exit-intent-modal">
+        <div class="modal-content ad-modal">
+            <div class="modal-header">
+                <h3>😢 Вы уходите?</h3>
+            </div>
+            <div class="modal-body">
+                <p>Это модальное окно появляется, когда пользователь пытается покинуть страницу.</p>
+                <p>Часто используется для удержания пользователей.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('exit-intent-modal')">Да, ухожу</button>
+                <button class="btn btn-primary" data-testid="stay-on-page" onclick="closeModal('exit-intent-modal')">Остаюсь!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Menu -->
+    <div id="floating-menu" class="floating-menu hidden" data-testid="floating-menu">
+        <a href="index.html" data-testid="float-home">🏠</a>
+        <a href="forms.html" data-testid="float-forms">📝</a>
+        <a href="tables.html" data-testid="float-tables">📊</a>
+        <a href="#" onclick="scrollToTop()" data-testid="float-top">⬆️</a>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container" data-testid="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

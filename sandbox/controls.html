@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎛️ Form Controls - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🎛️ Form Controls</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Checkboxes -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>1. Чекбоксы</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="checkbox-container">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              id="cb-all"
+              data-testid="cb-select-all"
+              onchange="toggleAllCheckboxes()"
+            />
+            <span>Выбрать все навыки</span>
+          </label>
+          <div class="checkbox-group-items">
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                class="skill-cb"
+                data-testid="cb-python"
+              /><span>Python</span></label
+            >
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                class="skill-cb"
+                data-testid="cb-javascript"
+              /><span>JavaScript</span></label
+            >
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                class="skill-cb"
+                data-testid="cb-java"
+              /><span>Java</span></label
+            >
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                class="skill-cb"
+                data-testid="cb-selenium"
+              /><span>Selenium</span></label
+            >
+            <label class="checkbox-label"
+              ><input
+                type="checkbox"
+                class="skill-cb"
+                data-testid="cb-playwright"
+              /><span>Playwright</span></label
+            >
+          </div>
+        </div>
+        <button
+          class="btn btn-primary"
+          data-testid="show-skills"
+          onclick="showSelectedSkills()"
+        >
+          Показать выбранные
+        </button>
+        <div id="skills-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- Radio Buttons -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>2. Радио кнопки</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="radio-group">
+          <h4>Способ оплаты:</h4>
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="payment"
+              value="card"
+              data-testid="radio-card"
+            /><span>💳 Банковская карта</span></label
+          >
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="payment"
+              value="paypal"
+              data-testid="radio-paypal"
+            /><span>🅿️ PayPal</span></label
+          >
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="payment"
+              value="crypto"
+              data-testid="radio-crypto"
+            /><span>₿ Криптовалюта</span></label
+          >
+        </div>
+        <div class="radio-group">
+          <h4>План подписки:</h4>
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="plan"
+              value="basic"
+              data-testid="radio-basic"
+            /><span>$9 - Basic</span></label
+          >
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="plan"
+              value="pro"
+              data-testid="radio-pro"
+            /><span>$29 - Pro</span></label
+          >
+          <label class="radio-label"
+            ><input
+              type="radio"
+              name="plan"
+              value="enterprise"
+              data-testid="radio-enterprise"
+            /><span>$99 - Enterprise</span></label
+          >
+        </div>
+        <button
+          class="btn btn-primary"
+          data-testid="show-radios"
+          onclick="showSelectedRadios()"
+        >
+          Показать выбранное
+        </button>
+        <div id="radio-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- Dropdowns -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>3. Дропдауны</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="select-country">Страна:</label>
+            <select id="select-country" data-testid="select-country">
+              <option value="">Выберите страну</option>
+              <option value="ru">Россия</option>
+              <option value="us">США</option>
+              <option value="uk">Великобритания</option>
+              <option value="de">Германия</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-tool">Инструмент автоматизации:</label>
+            <select id="select-tool" data-testid="select-tool">
+              <option value="">Выберите инструмент</option>
+              <option value="selenium">Selenium</option>
+              <option value="playwright">Playwright</option>
+              <option value="cypress">Cypress</option>
+              <option value="postman">Postman</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="select-multi">Языки (Ctrl/Cmd + клик):</label>
+            <select id="select-multi" multiple data-testid="select-multi">
+              <option value="python">Python</option>
+              <option value="javascript">JavaScript</option>
+              <option value="java">Java</option>
+              <option value="csharp">C#</option>
+              <option value="ruby">Ruby</option>
+            </select>
+          </div>
+        </div>
+        <button
+          class="btn btn-primary"
+          data-testid="show-selects"
+          onclick="showSelectedDropdowns()"
+        >
+          Показать выбранное
+        </button>
+        <div id="select-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- File Upload -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>4. Загрузка файлов</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Загрузить один файл:</label>
+            <input type="file" id="file-single" data-testid="file-single" />
+          </div>
+          <div class="form-group">
+            <label>Загрузить несколько файлов:</label>
+            <input
+              type="file"
+              id="file-multiple"
+              multiple
+              data-testid="file-multiple"
+            />
+          </div>
+        </div>
+        <div class="progress-section">
+          <h4>Progress Bar:</h4>
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              id="progress-fill"
+              style="width: 75%"
+            ></div>
+          </div>
+          <p>Статический прогресс: 75%</p>
+          <button
+            class="btn btn-primary"
+            data-testid="start-progress"
+            onclick="startProgress()"
+          >
+            ▶ Запустить анимацию
+          </button>
+          <div class="progress-bar">
+            <div
+              class="progress-fill animated"
+              id="animated-progress"
+              style="width: 0%"
+            ></div>
+          </div>
+          <p id="progress-text">Анимированный прогресс: 0%</p>
+        </div>
+      </div>
+
+      <!-- Sliders & Toggles -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>5. Слайдеры и Toggle</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="sliders-section">
+          <div class="slider-group">
+            <label>🔊 Громкость: <span id="volume-value">50</span>%</label>
+            <input
+              type="range"
+              id="slider-volume"
+              min="0"
+              max="100"
+              value="50"
+              data-testid="slider-volume"
+              oninput="updateSlider('volume')"
+            />
+          </div>
+          <div class="slider-group">
+            <label>☀️ Яркость: <span id="brightness-value">75</span>%</label>
+            <input
+              type="range"
+              id="slider-brightness"
+              min="0"
+              max="100"
+              value="75"
+              data-testid="slider-brightness"
+              oninput="updateSlider('brightness')"
+            />
+          </div>
+          <div class="slider-group">
+            <label>🌡️ Температура: <span id="temp-value">20</span>°C</label>
+            <input
+              type="range"
+              id="slider-temp"
+              min="0"
+              max="40"
+              value="20"
+              data-testid="slider-temp"
+              oninput="updateSlider('temp')"
+            />
+          </div>
+        </div>
+        <div class="toggles-section">
+          <h4>Toggle переключатели:</h4>
+          <label class="toggle-label">
+            <input
+              type="checkbox"
+              class="toggle"
+              data-testid="toggle-notifications"
+              checked
+            />
+            <span class="toggle-slider"></span>
+            <span>Уведомления по email</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" class="toggle" data-testid="toggle-push" />
+            <span class="toggle-slider"></span>
+            <span>Push уведомления</span>
+          </label>
+          <label class="toggle-label">
+            <input
+              type="checkbox"
+              class="toggle"
+              data-testid="toggle-dark"
+              onchange="toggleDarkMode()"
+            />
+            <span class="toggle-slider"></span>
+            <span>Темная тема</span>
+          </label>
+        </div>
+        <div class="color-section">
+          <h4>Color Picker:</h4>
+          <label
+            >Выберите цвет:
+            <input
+              type="color"
+              id="color-picker"
+              value="#3b82f6"
+              data-testid="color-picker"
+          /></label>
+          <span id="color-value">#3b82f6</span>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

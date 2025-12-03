@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🪟 Модальные окна - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🪟 Модальные окна</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Exercise 1: Simple Modal -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>1. Простое модальное окно</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <button
+          class="btn btn-primary"
+          data-testid="open-simple-modal"
+          onclick="openModal('simple-modal')"
+        >
+          🪟 Открыть модальное окно
+        </button>
+      </div>
+
+      <!-- Exercise 2: Nested Modals -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>2. Вложенные модальные окна</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Модальные окна, открывающиеся друг поверх друга.
+        </p>
+        <button
+          class="btn btn-primary"
+          data-testid="open-nested-modal-1"
+          onclick="openModal('nested-modal-1')"
+        >
+          🪟 Открыть первое окно
+        </button>
+      </div>
+
+      <!-- Exercise 3: Dynamic Modals -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>3. Динамические модальные окна</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p class="exercise-desc">Модальные окна с разным содержимым.</p>
+        <div class="btn-group">
+          <button
+            class="btn btn-success"
+            data-testid="modal-success"
+            onclick="openDynamicModal('success')"
+          >
+            ✓ Success Modal
+          </button>
+          <button
+            class="btn btn-danger"
+            data-testid="modal-error"
+            onclick="openDynamicModal('error')"
+          >
+            ✕ Error Modal
+          </button>
+          <button
+            class="btn btn-warning"
+            data-testid="modal-warning"
+            onclick="openDynamicModal('warning')"
+          >
+            ⚠ Warning Modal
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modals HTML -->
+    <div id="simple-modal" class="modal" data-testid="simple-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Простое модальное окно</h3>
+          <button
+            class="modal-close"
+            data-testid="close-simple-modal"
+            onclick="closeModal('simple-modal')"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Это содержимое модального окна. Здесь может быть любой контент.</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('simple-modal')"
+          >
+            Отмена
+          </button>
+          <button class="btn btn-primary" data-testid="modal-confirm">
+            Подтвердить
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="nested-modal-1" class="modal" data-testid="nested-modal-1">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Первое модальное окно</h3>
+          <button class="modal-close" onclick="closeModal('nested-modal-1')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Это первое модальное окно. Нажмите кнопку ниже, чтобы открыть
+            второе.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('nested-modal-1')"
+          >
+            Закрыть
+          </button>
+          <button
+            class="btn btn-primary"
+            data-testid="open-nested-modal-2"
+            onclick="openModal('nested-modal-2')"
+          >
+            Открыть второе окно
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="nested-modal-2" class="modal" data-testid="nested-modal-2">
+      <div class="modal-content modal-sm">
+        <div class="modal-header">
+          <h3>Второе модальное окно</h3>
+          <button class="modal-close" onclick="closeModal('nested-modal-2')">
+            ✕
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Это вложенное модальное окно!</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-primary"
+            onclick="closeModal('nested-modal-2')"
+          >
+            Закрыть
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="dynamic-modal" class="modal" data-testid="dynamic-modal">
+      <div class="modal-content" id="dynamic-modal-content"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

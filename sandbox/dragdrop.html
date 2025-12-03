@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🔄 Drag & Drop - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🔄 Drag & Drop</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Exercise 1: Simple Drag & Drop -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>1. Простой Drag & Drop</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Перетащите элементы из "Доступные" в "Выбранные"
+        </p>
+        <div class="dnd-container">
+          <div class="dnd-column">
+            <h4>Доступные</h4>
+            <div
+              class="dnd-list"
+              id="available-items"
+              data-testid="available-items"
+            >
+              <div class="dnd-item" draggable="true" data-testid="drag-item-1">
+                📦 Элемент 1
+              </div>
+              <div class="dnd-item" draggable="true" data-testid="drag-item-2">
+                📦 Элемент 2
+              </div>
+              <div class="dnd-item" draggable="true" data-testid="drag-item-3">
+                📦 Элемент 3
+              </div>
+              <div class="dnd-item" draggable="true" data-testid="drag-item-4">
+                📦 Элемент 4
+              </div>
+            </div>
+          </div>
+          <div class="dnd-column">
+            <h4>Выбранные</h4>
+            <div
+              class="dnd-list"
+              id="selected-items"
+              data-testid="selected-items"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 2: Sortable List -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>2. Сортировка списка</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Перетаскивайте элементы для изменения порядка
+        </p>
+        <div
+          class="sortable-list"
+          id="sortable-list"
+          data-testid="sortable-list"
+        >
+          <div class="sortable-item" draggable="true" data-testid="sort-item-1">
+            ↕ Позиция 1
+          </div>
+          <div class="sortable-item" draggable="true" data-testid="sort-item-2">
+            ↕ Позиция 2
+          </div>
+          <div class="sortable-item" draggable="true" data-testid="sort-item-3">
+            ↕ Позиция 3
+          </div>
+          <div class="sortable-item" draggable="true" data-testid="sort-item-4">
+            ↕ Позиция 4
+          </div>
+          <div class="sortable-item" draggable="true" data-testid="sort-item-5">
+            ↕ Позиция 5
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 3: Kanban Board -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>3. Kanban доска</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p class="exercise-desc">Организуйте задачи по статусам</p>
+        <div class="kanban-board">
+          <div class="kanban-column" data-status="todo">
+            <h4 class="kanban-title todo">📋 To Do</h4>
+            <div
+              class="kanban-items"
+              id="kanban-todo"
+              data-testid="kanban-todo"
+            >
+              <div class="kanban-card" draggable="true" data-testid="task-1">
+                <h5>Создать дизайн</h5>
+                <p>Разработать макеты</p>
+              </div>
+              <div class="kanban-card" draggable="true" data-testid="task-2">
+                <h5>Написать тесты</h5>
+                <p>Unit и E2E тесты</p>
+              </div>
+            </div>
+          </div>
+          <div class="kanban-column" data-status="progress">
+            <h4 class="kanban-title progress">🔄 In Progress</h4>
+            <div
+              class="kanban-items"
+              id="kanban-progress"
+              data-testid="kanban-progress"
+            >
+              <div class="kanban-card" draggable="true" data-testid="task-3">
+                <h5>Разработка API</h5>
+                <p>REST endpoints</p>
+              </div>
+            </div>
+          </div>
+          <div class="kanban-column" data-status="done">
+            <h4 class="kanban-title done">✅ Done</h4>
+            <div
+              class="kanban-items"
+              id="kanban-done"
+              data-testid="kanban-done"
+            >
+              <div class="kanban-card" draggable="true" data-testid="task-4">
+                <h5>База данных</h5>
+                <p>Настроена и готова</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

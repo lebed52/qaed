@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>⚡ Динамический контент - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">⚡ Динамический контент</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Exercise 1: Delayed Elements -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>1. Появление элементов</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Элементы появляются через 2 секунды после нажатия кнопки
+        </p>
+        <button
+          class="btn btn-primary"
+          data-testid="show-delayed"
+          onclick="showDelayedElements()"
+        >
+          ⏳ Показать элементы (2 сек)
+        </button>
+        <div id="delayed-container" class="delayed-container hidden">
+          <div class="delayed-item" data-testid="delayed-1">
+            🎯 Элемент 1 появился!
+          </div>
+          <div class="delayed-item" data-testid="delayed-2">
+            🎯 Элемент 2 появился!
+          </div>
+          <div class="delayed-item" data-testid="delayed-3">
+            🎯 Элемент 3 появился!
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 2: AJAX Loading -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>2. AJAX загрузка данных</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Загрузка данных имитирует запрос к API (3 секунды)
+        </p>
+        <button
+          class="btn btn-primary"
+          data-testid="load-ajax"
+          onclick="loadAjaxData()"
+        >
+          📡 Загрузить данные
+        </button>
+        <div id="ajax-loader" class="loader hidden">⏳ Загрузка...</div>
+        <div
+          id="ajax-data"
+          class="ajax-data hidden"
+          data-testid="ajax-result"
+        ></div>
+      </div>
+
+      <!-- Exercise 3: Infinite Scroll -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>3. Infinite Scroll</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <p class="exercise-desc">
+          Прокрутите вниз для загрузки новых элементов
+        </p>
+        <div
+          class="scroll-container"
+          id="infinite-scroll"
+          data-testid="infinite-scroll"
+        >
+          <div class="scroll-item">📄 Элемент 1</div>
+          <div class="scroll-item">📄 Элемент 2</div>
+          <div class="scroll-item">📄 Элемент 3</div>
+          <div class="scroll-item">📄 Элемент 4</div>
+          <div class="scroll-item">📄 Элемент 5</div>
+        </div>
+        <p class="scroll-info" id="scroll-count">Загружено: 5 элементов</p>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

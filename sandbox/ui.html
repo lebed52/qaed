@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎨 UI Компоненты - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🎨 UI Компоненты</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Accordion -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>1. Accordion</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="accordion" data-testid="accordion">
+          <div class="accordion-item">
+            <button
+              class="accordion-header"
+              data-testid="acc-1"
+              onclick="toggleAccordion(this)"
+            >
+              <span>Что такое Selenium?</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Selenium — это набор инструментов для автоматизации
+                веб-браузеров. Поддерживает множество языков программирования и
+                браузеров.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button
+              class="accordion-header"
+              data-testid="acc-2"
+              onclick="toggleAccordion(this)"
+            >
+              <span>Что такое Playwright?</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Playwright — современный инструмент от Microsoft для
+                тестирования веб-приложений. Поддерживает Chromium, Firefox и
+                WebKit.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button
+              class="accordion-header"
+              data-testid="acc-3"
+              onclick="toggleAccordion(this)"
+            >
+              <span>Что такое Cypress?</span>
+              <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+              <p>
+                Cypress — JavaScript-фреймворк для end-to-end тестирования с
+                отличным инструментом отладки и автоматическими ожиданиями.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>2. Tabs</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="tabs" data-testid="tabs">
+          <div class="tab-buttons">
+            <button
+              class="tab-btn active"
+              data-testid="tab-python"
+              onclick="switchTab('python')"
+            >
+              🐍 Python
+            </button>
+            <button
+              class="tab-btn"
+              data-testid="tab-js"
+              onclick="switchTab('js')"
+            >
+              🟨 JavaScript
+            </button>
+            <button
+              class="tab-btn"
+              data-testid="tab-java"
+              onclick="switchTab('java')"
+            >
+              ☕ Java
+            </button>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-python">
+              <h4>Python для автоматизации</h4>
+              <pre><code>from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    page = browser.new_page()
+    page.goto("https://example.com")</code></pre>
+            </div>
+            <div class="tab-pane" id="tab-js">
+              <h4>JavaScript для автоматизации</h4>
+              <pre><code>const { chromium } = require('playwright');
+
+(async () => {
+    const browser = await chromium.launch();
+    const page = await browser.newPage();
+    await page.goto('https://example.com');
+})();</code></pre>
+            </div>
+            <div class="tab-pane" id="tab-java">
+              <h4>Java для автоматизации</h4>
+              <pre><code>import com.microsoft.playwright.*;
+
+public class Example {
+    public static void main(String[] args) {
+        Playwright playwright = Playwright.create();
+        Browser browser = playwright.chromium().launch();
+    }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>3. Carousel</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="carousel" data-testid="carousel">
+          <div class="carousel-container">
+            <div class="carousel-slide active" data-testid="slide-1">
+              <div class="slide-content">
+                <span class="slide-icon">🧪</span>
+                <h4>Слайд 1</h4>
+                <p>Автоматизация тестирования</p>
+              </div>
+            </div>
+            <div class="carousel-slide" data-testid="slide-2">
+              <div class="slide-content">
+                <span class="slide-icon">✅</span>
+                <h4>Слайд 2</h4>
+                <p>Качество ПО</p>
+              </div>
+            </div>
+            <div class="carousel-slide" data-testid="slide-3">
+              <div class="slide-content">
+                <span class="slide-icon">🚀</span>
+                <h4>Слайд 3</h4>
+                <p>CI/CD интеграция</p>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-btn prev"
+            data-testid="carousel-prev"
+            onclick="changeSlide(-1)"
+          >
+            ‹
+          </button>
+          <button
+            class="carousel-btn next"
+            data-testid="carousel-next"
+            onclick="changeSlide(1)"
+          >
+            ›
+          </button>
+          <div class="carousel-dots">
+            <span
+              class="dot active"
+              data-testid="dot-1"
+              onclick="goToSlide(0)"
+            ></span>
+            <span class="dot" data-testid="dot-2" onclick="goToSlide(1)"></span>
+            <span class="dot" data-testid="dot-3" onclick="goToSlide(2)"></span>
+          </div>
+        </div>
+        <p class="carousel-info" id="carousel-info">Слайд 1 из 3</p>
+      </div>
+
+      <!-- Autocomplete -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>4. Autocomplete</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="autocomplete-container">
+          <label>Поиск языка программирования:</label>
+          <input
+            type="text"
+            id="autocomplete-input"
+            placeholder="Начните вводить... (например, Py)"
+            data-testid="autocomplete-input"
+            oninput="handleAutocomplete()"
+          />
+          <div
+            class="autocomplete-list hidden"
+            id="autocomplete-list"
+            data-testid="autocomplete-list"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Rating -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>5. Rating</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="rating-container">
+          <h4>Оцените курс:</h4>
+          <div class="rating" data-testid="rating">
+            <span class="star" data-value="1" onclick="setRating(1)">☆</span>
+            <span class="star" data-value="2" onclick="setRating(2)">☆</span>
+            <span class="star" data-value="3" onclick="setRating(3)">☆</span>
+            <span class="star" data-value="4" onclick="setRating(4)">☆</span>
+            <span class="star" data-value="5" onclick="setRating(5)">☆</span>
+          </div>
+          <span class="rating-value" id="rating-value">0/5</span>
+        </div>
+      </div>
+
+      <!-- OTP Input -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>6. OTP / Code Input</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="otp-container">
+          <label>Введите 6-значный код:</label>
+          <div class="otp-inputs" data-testid="otp-inputs">
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-1"
+              oninput="handleOTP(this, 1)"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-2"
+              oninput="handleOTP(this, 2)"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-3"
+              oninput="handleOTP(this, 3)"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-4"
+              oninput="handleOTP(this, 4)"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-5"
+              oninput="handleOTP(this, 5)"
+            />
+            <input
+              type="text"
+              maxlength="1"
+              class="otp-input"
+              data-testid="otp-6"
+              oninput="handleOTP(this, 6)"
+            />
+          </div>
+        </div>
+        <div id="otp-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- Double Click -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>7. Double Click</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div
+          class="dblclick-area"
+          id="dblclick-area"
+          data-testid="dblclick-area"
+        >
+          <p>🖱️ Дважды кликните на меня!</p>
+          <p id="dblclick-count">Двойных кликов: 0</p>
+        </div>
+      </div>
+
+      <!-- Copy to Clipboard -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>8. Copy to Clipboard</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <div class="copy-container">
+          <code id="copy-text">pip install playwright pytest</code>
+          <button
+            class="btn btn-small"
+            data-testid="copy-btn"
+            onclick="copyToClipboard()"
+          >
+            📋 Копировать
+          </button>
+        </div>
+        <div id="copy-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- Shadow DOM -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>9. Shadow DOM</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <div id="shadow-host" data-testid="shadow-host"></div>
+      </div>
+
+      <!-- Date Picker -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>10. Date Picker</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="date-input">Выберите дату:</label>
+            <input type="date" id="date-input" data-testid="date-input" />
+          </div>
+          <div class="form-group">
+            <label for="datetime-input">Дата и время:</label>
+            <input
+              type="datetime-local"
+              id="datetime-input"
+              data-testid="datetime-input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="time-input">Время:</label>
+            <input type="time" id="time-input" data-testid="time-input" />
+          </div>
+        </div>
+        <button
+          class="btn btn-primary"
+          data-testid="show-dates"
+          onclick="showSelectedDates()"
+        >
+          Показать выбранное
+        </button>
+        <div id="date-result" class="result-box hidden"></div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

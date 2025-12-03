@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFrame Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Space Grotesk', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            min-height: 100%;
+        }
+        h2 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: white;
+            color: #667eea;
+        }
+        #result {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            display: none;
+        }
+        #result.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h2>📦 Контент внутри iframe</h2>
+    <p>Это текст находится внутри iframe элемента</p>
+    <button id="iframe-btn" data-testid="iframe-button" onclick="handleClick()">Кнопка в iframe</button>
+    <div id="result" data-testid="iframe-result"></div>
+    
+    <script>
+        let clickCount = 0;
+        function handleClick() {
+            clickCount++;
+            const result = document.getElementById('result');
+            result.textContent = `✅ Кнопка нажата ${clickCount} раз!`;
+            result.classList.add('show');
+        }
+    </script>
+</body>
+</html>
+

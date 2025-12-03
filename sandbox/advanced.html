@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🚀 Продвинутые - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">🚀 Продвинутые</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- iFrames -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>1. Frames & iFrames</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <h4>Простой iframe:</h4>
+        <iframe
+          id="simple-iframe"
+          src="iframe-content.html"
+          data-testid="simple-iframe"
+          class="demo-iframe"
+        ></iframe>
+      </div>
+
+      <!-- Hovers -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>2. Hovers & Tooltips</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="hover-examples">
+          <div class="tooltip-container">
+            <button class="btn btn-primary" data-testid="hover-btn-1">
+              Наведите на меня
+            </button>
+            <span class="tooltip">Это всплывающая подсказка!</span>
+          </div>
+          <div class="dropdown-hover">
+            <button class="btn btn-secondary" data-testid="hover-menu">
+              Меню ▼
+            </button>
+            <div class="dropdown-content">
+              <a href="#" data-testid="menu-home">🏠 Главная</a>
+              <a href="#" data-testid="menu-profile">👤 Профиль</a>
+              <a href="#" data-testid="menu-settings">⚙️ Настройки</a>
+              <a href="#" data-testid="menu-logout">🚪 Выход</a>
+            </div>
+          </div>
+        </div>
+        <div class="hover-card" data-testid="hover-card">
+          <h5>Наведите курсор на эту карточку</h5>
+          <p>При наведении появится скрытый элемент</p>
+          <div class="hidden-content">
+            🎉 Секретный элемент! Вы нашли скрытый контент
+          </div>
+        </div>
+      </div>
+
+      <!-- Context Menu -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>3. Context Menu / Right Click</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="context-area" id="context-area" data-testid="context-area">
+          <p>🖱️ Кликните правой кнопкой мыши здесь</p>
+          <p>Появится кастомное контекстное меню</p>
+        </div>
+        <div id="context-menu" class="context-menu hidden">
+          <div
+            class="context-item"
+            data-testid="ctx-copy"
+            onclick="contextAction('copy')"
+          >
+            📋 Копировать
+          </div>
+          <div
+            class="context-item"
+            data-testid="ctx-paste"
+            onclick="contextAction('paste')"
+          >
+            📥 Вставить
+          </div>
+          <div
+            class="context-item"
+            data-testid="ctx-delete"
+            onclick="contextAction('delete')"
+          >
+            🗑️ Удалить
+          </div>
+          <div class="context-separator"></div>
+          <div
+            class="context-item"
+            data-testid="ctx-refresh"
+            onclick="contextAction('refresh')"
+          >
+            🔄 Обновить
+          </div>
+        </div>
+        <div id="context-result" class="result-box hidden"></div>
+      </div>
+
+      <!-- Multiple Windows -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>4. Multiple Windows & Tabs</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <div class="btn-group">
+          <button
+            class="btn btn-primary"
+            data-testid="open-new-tab"
+            onclick="openNewTab()"
+          >
+            📑 Открыть новую вкладку
+          </button>
+          <button
+            class="btn btn-secondary"
+            data-testid="open-new-window"
+            onclick="openNewWindow()"
+          >
+            🪟 Открыть новое окно
+          </button>
+        </div>
+      </div>
+
+      <!-- Keyboard Events -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>5. Keyboard Events</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="keyboard-section">
+          <p>Попробуйте нажать эти комбинации:</p>
+          <ul>
+            <li><kbd>Ctrl</kbd> + <kbd>S</kbd> — Сохранить</li>
+            <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> — Отправить</li>
+            <li><kbd>Escape</kbd> — Закрыть</li>
+          </ul>
+          <div class="keyboard-inputs">
+            <input
+              type="text"
+              placeholder="Поле 1 (нажмите Tab)"
+              data-testid="kb-field-1"
+            />
+            <input
+              type="text"
+              placeholder="Поле 2 (нажмите Tab)"
+              data-testid="kb-field-2"
+            />
+            <input
+              type="text"
+              placeholder="Поле 3 (нажмите Enter)"
+              data-testid="kb-field-3"
+            />
+          </div>
+          <div
+            id="keyboard-result"
+            class="result-box hidden"
+            data-testid="keyboard-result"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

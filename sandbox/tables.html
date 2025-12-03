@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📊 Таблицы - QA Sandbox</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="back-link">← На главную</a>
+      <span class="page-title">📊 Таблицы</span>
+    </nav>
+
+    <main class="page-container">
+      <!-- Exercise 1: Static Table -->
+      <div class="exercise" data-difficulty="easy">
+        <div class="exercise-header">
+          <h3>1. Статическая таблица</h3>
+          <span class="difficulty easy">Easy</span>
+        </div>
+        <table class="data-table" data-testid="static-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Email</th>
+              <th>Статус</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-testid="row-1">
+              <td>1</td>
+              <td>Иван Петров</td>
+              <td>ivan@example.com</td>
+              <td><span class="status active">Active</span></td>
+              <td>
+                <button
+                  class="btn-icon"
+                  data-testid="edit-1"
+                  title="Редактировать"
+                >
+                  ✏️
+                </button>
+                <button class="btn-icon" data-testid="delete-1" title="Удалить">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+            <tr data-testid="row-2">
+              <td>2</td>
+              <td>Мария Сидорова</td>
+              <td>maria@example.com</td>
+              <td><span class="status pending">Pending</span></td>
+              <td>
+                <button
+                  class="btn-icon"
+                  data-testid="edit-2"
+                  title="Редактировать"
+                >
+                  ✏️
+                </button>
+                <button class="btn-icon" data-testid="delete-2" title="Удалить">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+            <tr data-testid="row-3">
+              <td>3</td>
+              <td>Алексей Козлов</td>
+              <td>alex@example.com</td>
+              <td><span class="status inactive">Inactive</span></td>
+              <td>
+                <button
+                  class="btn-icon"
+                  data-testid="edit-3"
+                  title="Редактировать"
+                >
+                  ✏️
+                </button>
+                <button class="btn-icon" data-testid="delete-3" title="Удалить">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Exercise 2: Sortable Table -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>2. Таблица с сортировкой</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <p class="exercise-desc">
+          Кликните на заголовок колонки для сортировки
+        </p>
+        <table
+          class="data-table sortable"
+          id="sortable-table"
+          data-testid="sortable-table"
+        >
+          <thead>
+            <tr>
+              <th data-sort="id" class="sortable-header" data-testid="sort-id">
+                ID ↕
+              </th>
+              <th
+                data-sort="name"
+                class="sortable-header"
+                data-testid="sort-name"
+              >
+                Имя ↕
+              </th>
+              <th
+                data-sort="age"
+                class="sortable-header"
+                data-testid="sort-age"
+              >
+                Возраст ↕
+              </th>
+              <th
+                data-sort="salary"
+                class="sortable-header"
+                data-testid="sort-salary"
+              >
+                Зарплата ↕
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Анна Волкова</td>
+              <td>28</td>
+              <td>$75,000</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Борис Смирнов</td>
+              <td>35</td>
+              <td>$92,000</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Виктор Морозов</td>
+              <td>42</td>
+              <td>$105,000</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Галина Орлова</td>
+              <td>31</td>
+              <td>$88,000</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Дмитрий Новиков</td>
+              <td>25</td>
+              <td>$65,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Exercise 3: Filterable Table -->
+      <div class="exercise" data-difficulty="medium">
+        <div class="exercise-header">
+          <h3>3. Таблица с фильтрацией</h3>
+          <span class="difficulty medium">Medium</span>
+        </div>
+        <div class="filter-controls">
+          <input
+            type="text"
+            id="filter-search"
+            placeholder="Поиск по имени..."
+            data-testid="filter-search"
+          />
+          <select id="filter-status" data-testid="filter-status">
+            <option value="">Все статусы</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+        <table
+          class="data-table"
+          id="filterable-table"
+          data-testid="filterable-table"
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Имя</th>
+              <th>Email</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-status="active">
+              <td>1</td>
+              <td>Алиса Купер</td>
+              <td>alice@example.com</td>
+              <td><span class="status active">Active</span></td>
+            </tr>
+            <tr data-status="inactive">
+              <td>2</td>
+              <td>Боб Уилсон</td>
+              <td>bob@example.com</td>
+              <td><span class="status inactive">Inactive</span></td>
+            </tr>
+            <tr data-status="active">
+              <td>3</td>
+              <td>Чарли Адамс</td>
+              <td>charlie@example.com</td>
+              <td><span class="status active">Active</span></td>
+            </tr>
+            <tr data-status="pending">
+              <td>4</td>
+              <td>Диана Мур</td>
+              <td>diana@example.com</td>
+              <td><span class="status pending">Pending</span></td>
+            </tr>
+            <tr data-status="active">
+              <td>5</td>
+              <td>Ева Мартинез</td>
+              <td>eve@example.com</td>
+              <td><span class="status active">Active</span></td>
+            </tr>
+            <tr data-status="inactive">
+              <td>6</td>
+              <td>Франк Лопез</td>
+              <td>frank@example.com</td>
+              <td><span class="status inactive">Inactive</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="table-info" id="filter-info">Показано: 6 из 6 записей</p>
+      </div>
+
+      <!-- Exercise 4: Pagination Table -->
+      <div class="exercise" data-difficulty="hard">
+        <div class="exercise-header">
+          <h3>4. Таблица с пагинацией</h3>
+          <span class="difficulty hard">Hard</span>
+        </div>
+        <div class="pagination-controls">
+          <span id="pagination-info">Показано 1-5 из 20 записей</span>
+          <select id="page-size" data-testid="page-size">
+            <option value="5">5 на странице</option>
+            <option value="10">10 на странице</option>
+            <option value="20">20 на странице</option>
+          </select>
+        </div>
+        <table
+          class="data-table"
+          id="paginated-table"
+          data-testid="paginated-table"
+        >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Товар</th>
+              <th>Категория</th>
+              <th>Цена</th>
+            </tr>
+          </thead>
+          <tbody id="paginated-body"></tbody>
+        </table>
+        <div class="pagination" id="pagination-buttons">
+          <button class="btn-page" data-testid="page-first" disabled>«</button>
+          <button class="btn-page" data-testid="page-prev" disabled>‹</button>
+          <span id="page-numbers"></span>
+          <button class="btn-page" data-testid="page-next">›</button>
+          <button class="btn-page" data-testid="page-last">»</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

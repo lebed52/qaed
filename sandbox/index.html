@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Песочница Автоматизатора - Практика автоматизации</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --bg: #0a0a0f;
+        --bg-card: #16161d;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border: #2d2d3a;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Animated background */
+      .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(
+            circle at 20% 80%,
+            rgba(99, 102, 241, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            rgba(168, 85, 247, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(59, 130, 246, 0.1) 0%,
+            transparent 40%
+          );
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        padding: 4rem 2rem 2rem;
+      }
+
+      .logo {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #a855f7 50%, #6366f1 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Social Links */
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin: 2rem 0;
+        flex-wrap: wrap;
+        padding: 0 1rem;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+      }
+
+      .social-link.youtube:hover {
+        background: #ff0000;
+        border-color: #ff0000;
+      }
+
+      .social-link.telegram:hover {
+        background: #0088cc;
+        border-color: #0088cc;
+      }
+
+      .social-link.chat:hover {
+        background: #22c55e;
+        border-color: #22c55e;
+      }
+
+      .social-icon {
+        font-size: 1.3rem;
+      }
+
+      /* Menu Grid */
+      .menu-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .menu-title {
+        text-align: center;
+        font-size: 1.5rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .menu-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 2rem;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .menu-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--card-gradient);
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(99, 102, 241, 0.5);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .menu-card:hover::before {
+        opacity: 1;
+      }
+
+      .card-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-desc {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .card-count {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: rgba(99, 102, 241, 0.2);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 3rem 2rem;
+        color: var(--text-muted);
+      }
+
+      .footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .footer a:hover {
+        text-decoration: underline;
+      }
+
+      .author {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .logo {
+          font-size: 3rem;
+        }
+
+        .social-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .social-link {
+          width: 100%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-animation"></div>
+
+    <header class="header">
+      <div class="logo">🧪</div>
+      <h1>QA Sandbox</h1>
+      <p>Песочница для практики автоматизации тестирования на Playwright</p>
+    </header>
+
+    <div class="social-links">
+        <a
+        href="https://t.me/+NT-IOeLALxszN2Zi"
+        target="_blank"
+        class="social-link chat"
+      >
+        <span class="social-icon">💬</span>
+        <span>Чат взаимопомощи QA</span>
+      </a>
+      <a
+        href="https://www.youtube.com/@qabigtech"
+        target="_blank"
+        class="social-link youtube"
+      >
+        <span class="social-icon">📺</span>
+        <span>YouTube канал QA</span>
+      </a>
+      <a
+        href="https://t.me/qabigtech"
+        target="_blank"
+        class="social-link telegram"
+      >
+        <span class="social-icon">📱</span>
+        <span>Telegram канал QA</span>
+      </a>
+    </div>
+
+    <main class="menu-container">
+      <h2 class="menu-title">Выберите раздел для практики</h2>
+
+      <div class="menu-grid">
+        <a
+          href="forms.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #667eea, #764ba2)"
+        >
+          <span class="card-icon">📝</span>
+          <span class="card-count">3 задания</span>
+          <h3 class="card-title">Формы и Inputs</h3>
+          <p class="card-desc">Регистрация, валидация, динамические поля</p>
+        </a>
+
+        <a
+          href="tables.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #f093fb, #f5576c)"
+        >
+          <span class="card-icon">📊</span>
+          <span class="card-count">4 задания</span>
+          <h3 class="card-title">Таблицы</h3>
+          <p class="card-desc">Сортировка, фильтрация, пагинация</p>
+        </a>
+
+        <a
+          href="modals.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #4facfe, #00f2fe)"
+        >
+          <span class="card-icon">🪟</span>
+          <span class="card-count">3 задания</span>
+          <h3 class="card-title">Модальные окна</h3>
+          <p class="card-desc">Простые, вложенные, динамические</p>
+        </a>
+
+        <a
+          href="dragdrop.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #fa709a, #fee140)"
+        >
+          <span class="card-icon">🔄</span>
+          <span class="card-count">3 задания</span>
+          <h3 class="card-title">Drag & Drop</h3>
+          <p class="card-desc">Перетаскивание, сортировка, Kanban</p>
+        </a>
+
+        <a
+          href="dynamic.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #a8edea, #fed6e3)"
+        >
+          <span class="card-icon">⚡</span>
+          <span class="card-count">3 задания</span>
+          <h3 class="card-title">Динамический контент</h3>
+          <p class="card-desc">AJAX, задержки, бесконечный скролл</p>
+        </a>
+
+        <a
+          href="alerts.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #ffecd2, #fcb69f)"
+        >
+          <span class="card-icon">🔔</span>
+          <span class="card-count">1 задание</span>
+          <h3 class="card-title">Alerts & Dialogs</h3>
+          <p class="card-desc">Alert, Confirm, Prompt</p>
+        </a>
+
+        <a
+          href="controls.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #a1c4fd, #c2e9fb)"
+        >
+          <span class="card-icon">🎛️</span>
+          <span class="card-count">5 заданий</span>
+          <h3 class="card-title">Form Controls</h3>
+          <p class="card-desc">Чекбоксы, радио, слайдеры, файлы</p>
+        </a>
+
+        <a
+          href="advanced.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #d299c2, #fef9d7)"
+        >
+          <span class="card-icon">🚀</span>
+          <span class="card-count">5 заданий</span>
+          <h3 class="card-title">Продвинутые</h3>
+          <p class="card-desc">iFrames, hover, контекстное меню</p>
+        </a>
+
+        <a
+          href="ui.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #89f7fe, #66a6ff)"
+        >
+          <span class="card-icon">🎨</span>
+          <span class="card-count">10 заданий</span>
+          <h3 class="card-title">UI Компоненты</h3>
+          <p class="card-desc">Аккордеон, табы, карусель, рейтинг</p>
+        </a>
+
+        <a
+          href="special.html"
+          class="menu-card"
+          style="--card-gradient: linear-gradient(135deg, #f6d365, #fda085)"
+        >
+          <span class="card-icon">🎭</span>
+          <span class="card-count">12 заданий</span>
+          <h3 class="card-title">Особые сценарии</h3>
+          <p class="card-desc">A/B тесты, авторизация, геолокация</p>
+        </a>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>🧪 QA Sandbox — Песочница для практики автоматизации</p>
+      <p class="author">
+        Автор:
+        <a href="https://t.me/qabigtech" target="_blank">Сергей Лебедев | QA</a>
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новое окно - QA Sandbox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Space Grotesk', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        .container {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid #475569;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        p {
+            color: #94a3b8;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .info-box {
+            background: #0f172a;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #334155;
+        }
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: #94a3b8;
+        }
+        .info-value {
+            color: #6366f1;
+            font-weight: 600;
+        }
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+        button {
+            width: 100%;
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-bottom: 0.5rem;
+        }
+        button:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #475569;
+        }
+        .btn-secondary:hover {
+            background: #64748b;
+        }
+        #message {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border-radius: 6px;
+            display: none;
+        }
+        #message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🪟 Новое окно</h1>
+        <p>Это окно открыто для практики работы с множественными окнами/вкладками</p>
+        
+        <div class="info-box">
+            <div class="info-item">
+                <span class="info-label">Window ID:</span>
+                <span class="info-value" id="window-id"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Время открытия:</span>
+                <span class="info-value" id="open-time"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Opener:</span>
+                <span class="info-value" id="has-opener"></span>
+            </div>
+        </div>
+        
+        <input type="text" id="message-input" placeholder="Введите сообщение..." data-testid="new-window-input">
+        <button data-testid="send-message" onclick="sendMessage()">📤 Отправить в родительское окно</button>
+        <button class="btn-secondary" data-testid="close-window" onclick="window.close()">✕ Закрыть окно</button>
+        
+        <div id="message" data-testid="message-result"></div>
+    </div>
+
+    <script>
+        // Display window info
+        document.getElementById('window-id').textContent = Math.random().toString(36).substr(2, 9);
+        document.getElementById('open-time').textContent = new Date().toLocaleTimeString();
+        document.getElementById('has-opener').textContent = window.opener ? 'Да' : 'Нет';
+        
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = document.getElementById('message');
+            
+            if (input.value) {
+                // Try to communicate with opener
+                if (window.opener) {
+                    try {
+                        window.opener.postMessage({ type: 'message', text: input.value }, '*');
+                    } catch(e) {
+                        console.log('Cannot communicate with opener');
+                    }
+                }
+                
+                message.textContent = `✅ Сообщение отправлено: "${input.value}"`;
+                message.classList.add('show');
+                input.value = '';
+            }
+        }
+        
+        // Listen for messages from parent
+        window.addEventListener('message', function(event) {
+            const message = document.getElementById('message');
+            message.textContent = `📩 Получено: "${event.data}"`;
+            message.classList.add('show');
+        });
+    </script>
+</body>
+</html>
+
