@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Test results
+test-results/
+playwright-report/
+
+# Screenshots (кроме эталонных)
+*.png
+!tests/**/*-snapshots/*.png
+
+# Videos
+*.webm
+
+# Traces
+*.zip
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+playwright/.cache/
+
+# Logs
+*.log
+npm-debug.log*
