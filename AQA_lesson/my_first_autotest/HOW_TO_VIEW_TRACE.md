@@ -263,3 +263,5 @@ npx playwright show-trace $(find test-results -name "trace.zip" | head -1)
 
 Trace Viewer - это то, что делает Playwright лучшим фреймворком для автоматизации! 🚀
 
+
+
