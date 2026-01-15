@@ -24,36 +24,29 @@ test.describe("🎭 Главная страница QA Sandbox", () => {
    * - URL корректный
    */
   test("Открытие главной страницы QA Sandbox", async ({ page }) => {
-    // { page } - это fixture от Playwright, предоставляет браузерный контекст
-
-    console.log("🚀 Начинаю тест: Открытие главной страницы");
-
-    // Создаём экземпляр Page Object
     const sandboxPage = new QASandboxPage(page);
 
-    // Шаг 1: Открываем страницу (использует baseURL из конфига)
-    console.log("📖 Шаг 1: Открываю страницу https://testingit.ru/");
-    await sandboxPage.goto();
+    await test.step("Открыть главную страницу", async () => {
+      await sandboxPage.goto();
+    });
 
-    // Шаг 2: Проверяем, что страница загрузилась
-    console.log("✅ Шаг 2: Проверяю загрузку страницы");
-    const isLoaded = await sandboxPage.isLoaded();
-    expect(isLoaded).toBe(true);
+    await test.step("Проверить загрузку страницы", async () => {
+      const isLoaded = await sandboxPage.isLoaded();
+      expect(isLoaded).toBe(true);
+    });
 
-    // Шаг 3: Проверяем URL
-    console.log("🔗 Шаг 3: Проверяю URL");
-    expect(page.url()).toContain("testingit.ru");
+    await test.step("Проверить URL страницы", async () => {
+      expect(page.url()).toContain("testingit.ru");
+    });
 
-    // Шаг 4: Проверяем title страницы
-    console.log("📌 Шаг 4: Проверяю заголовок страницы");
-    await expect(page).toHaveTitle(/QA Sandbox|Песочница|testingit/i);
+    await test.step("Проверить заголовок страницы", async () => {
+      await expect(page).toHaveTitle(/QA Sandbox|Песочница|testingit/i);
+    });
 
-    // Шаг 5: Получаем текст заголовка
-    const headingText = await sandboxPage.getHeadingText();
-    console.log(`📝 Заголовок на странице: "${headingText}"`);
-    expect(headingText.length).toBeGreaterThan(0);
-
-    console.log("✅ ТЕСТ ПРОЙДЕН: Главная страница работает корректно!");
+    await test.step("Проверить наличие заголовка на странице", async () => {
+      const headingText = await sandboxPage.getHeadingText();
+      expect(headingText.length).toBeGreaterThan(0);
+    });
   });
 
   /**
@@ -68,61 +61,29 @@ test.describe("🎭 Главная страница QA Sandbox", () => {
   }) => {
     const sandboxPage = new QASandboxPage(page);
 
-    console.log("🚀 Начинаю тест: Проверка разделов");
-
-    await sandboxPage.goto();
-
-    // Проверяем видимость ссылок на все разделы
-    console.log("🔍 Проверяю видимость ссылок на все разделы...");
-
-    // 1. Формы
-    await expect(sandboxPage.formsLink).toBeVisible();
-    console.log('  ✅ Раздел "Формы и Inputs" - доступен');
-
-    // 2. Таблицы
-    await expect(sandboxPage.tablesLink).toBeVisible();
-    console.log('  ✅ Раздел "Таблицы" - доступен');
-
-    // 3. Модальные окна
-    await expect(sandboxPage.modalsLink).toBeVisible();
-    console.log('  ✅ Раздел "Модальные окна" - доступен');
-
-    // 4. Drag & Drop
-    await expect(sandboxPage.dragDropLink).toBeVisible();
-    console.log('  ✅ Раздел "Drag & Drop" - доступен');
-
-    // 5. Динамический контент
-    await expect(sandboxPage.dynamicContentLink).toBeVisible();
-    console.log('  ✅ Раздел "Динамический контент" - доступен');
-
-    // 6. Alerts & Dialogs
-    await expect(sandboxPage.alertsLink).toBeVisible();
-    console.log('  ✅ Раздел "Alerts & Dialogs" - доступен');
-
-    // 7. Form Controls
-    await expect(sandboxPage.controlsLink).toBeVisible();
-    console.log('  ✅ Раздел "Form Controls" - доступен');
-
-    // 8. Продвинутые
-    await expect(sandboxPage.advancedLink).toBeVisible();
-    console.log('  ✅ Раздел "Продвинутые" - доступен');
-
-    // 9. UI Компоненты
-    await expect(sandboxPage.uiLink).toBeVisible();
-    console.log('  ✅ Раздел "UI Компоненты" - доступен');
-
-    // 10. Особые сценарии
-    await expect(sandboxPage.specialLink).toBeVisible();
-    console.log('  ✅ Раздел "Особые сценарии" - доступен');
-
-    // Делаем скриншот главной страницы
-    await page.screenshot({
-      path: "test-results/qa-sandbox-main-page.png",
-      fullPage: true,
+    await test.step("Открыть главную страницу", async () => {
+      await sandboxPage.goto();
     });
-    console.log("📸 Скриншот главной страницы сохранён");
 
-    console.log("✅ ТЕСТ ПРОЙДЕН: Все 10 разделов доступны!");
+    await test.step("Проверить видимость всех разделов", async () => {
+      await expect(sandboxPage.formsLink).toBeVisible();
+      await expect(sandboxPage.tablesLink).toBeVisible();
+      await expect(sandboxPage.modalsLink).toBeVisible();
+      await expect(sandboxPage.dragDropLink).toBeVisible();
+      await expect(sandboxPage.dynamicContentLink).toBeVisible();
+      await expect(sandboxPage.alertsLink).toBeVisible();
+      await expect(sandboxPage.controlsLink).toBeVisible();
+      await expect(sandboxPage.advancedLink).toBeVisible();
+      await expect(sandboxPage.uiLink).toBeVisible();
+      await expect(sandboxPage.specialLink).toBeVisible();
+    });
+
+    await test.step("Сделать скриншот главной страницы", async () => {
+      await page.screenshot({
+        path: "test-results/qa-sandbox-main-page.png",
+        fullPage: true,
+      });
+    });
   });
 
   /**
@@ -133,26 +94,22 @@ test.describe("🎭 Главная страница QA Sandbox", () => {
   test("Переход в раздел Alerts & Dialogs", async ({ page }) => {
     const sandboxPage = new QASandboxPage(page);
 
-    console.log("🚀 Начинаю тест: Переход в раздел Alerts");
+    await test.step("Открыть главную страницу", async () => {
+      await sandboxPage.goto();
+    });
 
-    // Открываем главную
-    await sandboxPage.goto();
-    console.log("📖 Открыта главная страница");
+    await test.step("Перейти в раздел Alerts & Dialogs", async () => {
+      await sandboxPage.goToAlerts();
+    });
 
-    // Переходим в раздел Alerts
-    console.log('🔄 Перехожу в раздел "Alerts & Dialogs"');
-    await sandboxPage.goToAlerts();
+    await test.step("Проверить URL раздела Alerts", async () => {
+      expect(page.url()).toContain("alerts");
+    });
 
-    // Проверяем, что URL изменился
-    expect(page.url()).toContain("alerts");
-    console.log(`🔗 URL изменился: ${page.url()}`);
-
-    // Проверяем, что есть кнопки для вызова диалогов
-    const alertButton = page.getByRole("button", { name: /alert/i }).first();
-    await expect(alertButton).toBeVisible();
-    console.log("✅ Кнопка Alert найдена на странице");
-
-    console.log("✅ ТЕСТ ПРОЙДЕН: Переход в раздел выполнен успешно!");
+    await test.step("Проверить наличие кнопки Alert", async () => {
+      const alertButton = page.getByRole("button", { name: /alert/i }).first();
+      await expect(alertButton).toBeVisible();
+    });
   });
 
   /**
@@ -163,51 +120,46 @@ test.describe("🎭 Главная страница QA Sandbox", () => {
   test("Проверка отображения на мобильном устройстве", async ({ page }) => {
     const sandboxPage = new QASandboxPage(page);
 
-    console.log("🚀 Начинаю тест: Мобильная версия");
-
-    // Устанавливаем мобильный viewport (iPhone 13)
-    await page.setViewportSize({ width: 390, height: 844 });
-    console.log("📱 Установлен viewport мобильного устройства (390x844)");
-
-    await sandboxPage.goto();
-
-    // Проверяем, что страница загрузилась
-    const isLoaded = await sandboxPage.isLoaded();
-    expect(isLoaded).toBe(true);
-    console.log("✅ Страница загрузилась на мобильном устройстве");
-
-    // Делаем скриншот мобильной версии
-    await page.screenshot({
-      path: "test-results/qa-sandbox-mobile.png",
-      fullPage: true,
+    await test.step("Установить мобильный viewport", async () => {
+      await page.setViewportSize({ width: 390, height: 844 });
     });
-    console.log("📸 Скриншот мобильной версии сохранён");
 
-    // Возвращаем desktop viewport
-    await page.setViewportSize({ width: 1280, height: 720 });
+    await test.step("Открыть главную страницу", async () => {
+      await sandboxPage.goto();
+    });
 
-    console.log("✅ ТЕСТ ПРОЙДЕН: Мобильная версия работает!");
+    await test.step("Проверить загрузку страницы на мобильном устройстве", async () => {
+      const isLoaded = await sandboxPage.isLoaded();
+      expect(isLoaded).toBe(true);
+    });
+
+    await test.step("Сделать скриншот мобильной версии", async () => {
+      await page.screenshot({
+        path: "test-results/qa-sandbox-mobile.png",
+        fullPage: true,
+      });
+    });
+
+    await test.step("Вернуть desktop viewport", async () => {
+      await page.setViewportSize({ width: 1280, height: 720 });
+    });
   });
 
   /**
    * TEST #5: Проверка производительности загрузки
    */
   test("Проверка времени загрузки страницы", async ({ page }) => {
-    console.log("🚀 Начинаю тест: Производительность");
+    let loadTime: number;
 
-    const startTime = Date.now();
+    await test.step("Измерить время загрузки страницы", async () => {
+      const startTime = Date.now();
+      await page.goto("/");
+      await page.waitForLoadState("networkidle");
+      loadTime = Date.now() - startTime;
+    });
 
-    // Используем baseURL из конфига (/)
-    await page.goto("/");
-    await page.waitForLoadState("networkidle");
-
-    const loadTime = Date.now() - startTime;
-
-    console.log(`⏱️ Время загрузки страницы: ${loadTime}ms`);
-
-    // Проверяем, что страница загрузилась быстрее 5 секунд
-    expect(loadTime).toBeLessThan(5000);
-
-    console.log("✅ ТЕСТ ПРОЙДЕН: Страница загружается быстро!");
+    await test.step("Проверить, что страница загружается быстро", async () => {
+      expect(loadTime).toBeLessThan(5000);
+    });
   });
 });

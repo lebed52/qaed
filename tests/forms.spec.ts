@@ -26,78 +26,40 @@ test.describe("📝 Формы и Inputs", () => {
    * - Успешную отправку формы
    * - Отображение сообщения об успехе и отправленных данных
    */
-  test("Корректное заполнения формы регистрации", async ({ page }) => {
+  test("Форма ввода.Без валидации.Корректное заполнения формы регистрации", async ({
+    page,
+  }) => {
     const formsPage = new FormsPage(page);
 
-    console.log("🚀 Начинаю комплексный тест формы регистрации");
-    console.log("=".repeat(60));
+    await test.step("Открыть страницу с формой", async () => {
+      await formsPage.goto();
+      await test.step("Проверить видимость всех полей формы", async () => {
+        await expect(formsPage.usernameInput).toBeVisible();
+        await expect(formsPage.emailInput).toBeVisible();
+        await expect(formsPage.passwordInput).toBeVisible();
+        await expect(formsPage.countrySelect).toBeVisible();
+        await expect(formsPage.termsCheckbox).toBeVisible();
+        await expect(formsPage.submitButton).toBeVisible();
+      });
+    });
 
-    // ============================================================
-    // БЛОК 1: Проверка видимости всех элементов формы
-    // ============================================================
-    console.log("\n📖 БЛОК 1: Открытие страницы и проверка элементов формы");
-    await formsPage.goto();
+    await test.step("Проверить работу выпадающего списка стран", async () => {
+      const countries = ["Россия", "США", "Германия", "Великобритания"];
+      for (const country of countries) {
+        await formsPage.countrySelect.selectOption({ label: country });
+        const selectedValue = await formsPage.countrySelect.inputValue();
+      }
+    });
 
-    console.log("  🔍 Проверяю видимость всех полей формы...");
-    await expect(formsPage.usernameInput).toBeVisible();
-    console.log("    ✅ Поле Username видно");
-    await expect(formsPage.emailInput).toBeVisible();
-    console.log("    ✅ Поле Email видно");
-    await expect(formsPage.passwordInput).toBeVisible();
-    console.log("    ✅ Поле Password видно");
-    await expect(formsPage.countrySelect).toBeVisible();
-    console.log("    ✅ Выпадающий список Country видно");
-    await expect(formsPage.termsCheckbox).toBeVisible();
-    console.log("    ✅ Чекбокс Terms видно");
-    await expect(formsPage.submitButton).toBeVisible();
-    console.log("    ✅ Кнопка Submit видна");
-
-    // ============================================================
-    // БЛОК 2: Проверка работы выпадающего списка стран
-    // ============================================================
-    console.log("\n🌍 БЛОК 2: Проверка выпадающего списка стран");
-    const countries = ["Россия", "США", "Германия", "Великобритания"];
-
-    for (const country of countries) {
-      await formsPage.countrySelect.selectOption({ label: country });
-      const selectedValue = await formsPage.countrySelect.inputValue();
-      console.log(
-        `  ✅ Страна "${country}" успешно выбрана (value: ${selectedValue})`
-      );
-    }
-
-    // ============================================================
-    // БЛОК 3: Проверка работы чекбокса
-    // ============================================================
-    console.log("\n☑️  БЛОК 3: Проверка работы чекбокса согласия с условиями");
-
-    // Проверяем начальное состояние
-    const initialState = await formsPage.termsCheckbox.isChecked();
-    console.log(
-      `  📋 Начальное состояние чекбокса: ${
-        initialState ? "отмечен" : "не отмечен"
-      }`
-    );
-
-    // Отмечаем чекбокс
-    await formsPage.termsCheckbox.check();
-    await expect(formsPage.termsCheckbox).toBeChecked();
-    console.log("  ✅ Чекбокс успешно отмечен");
-
-    // Снимаем чекбокс
-    await formsPage.termsCheckbox.uncheck();
-    await expect(formsPage.termsCheckbox).not.toBeChecked();
-    console.log("  ✅ Чекбокс успешно снят");
-
-    // Отмечаем снова для финальной отправки
-    await formsPage.termsCheckbox.check();
-    await expect(formsPage.termsCheckbox).toBeChecked();
-    console.log("  ✅ Чекбокс снова отмечен для отправки формы");
-
-    // ============================================================
-    // БЛОК 4: Заполнение текстовых полей и выбор финальной страны
-    // ============================================================
-    console.log("\n✏️  БЛОК 4: Заполнение всех полей формы финальными данными");
+    await test.step("Проверить работу чекбокса", async () => {
+      const initialState = await formsPage.termsCheckbox.isChecked();
+      await formsPage.termsCheckbox.check();
+      await expect(formsPage.termsCheckbox).toBeChecked();
+      await formsPage.termsCheckbox.uncheck();
+      await expect(formsPage.termsCheckbox).not.toBeChecked();
+      await formsPage.termsCheckbox.check();
+      await expect(formsPage.termsCheckbox).toBeChecked();
+    });
 
     const testData = {
       username: "qa_tester_2026",
@@ -107,89 +69,34 @@ test.describe("📝 Формы и Inputs", () => {
       acceptTerms: true,
     };
 
-    console.log(`  📝 Данные для регистрации:`);
-    console.log(`     Username: ${testData.username}`);
-    console.log(`     Email: ${testData.email}`);
-    console.log(`     Password: ${"*".repeat(testData.password.length)}`);
-    console.log(`     Country: ${testData.country}`);
-    console.log(`     Accept Terms: ${testData.acceptTerms}`);
+    await test.step("Заполнить текстовые поля формы", async () => {
+      await formsPage.usernameInput.fill(testData.username);
+      await formsPage.emailInput.fill(testData.email);
+      await formsPage.passwordInput.fill(testData.password);
+      await formsPage.countrySelect.selectOption({ label: testData.country });
+    });
 
-    // Заполняем поля
-    await formsPage.usernameInput.fill(testData.username);
-    console.log("  ✅ Username заполнен");
+    await test.step("Проверить корректность заполненных данных", async () => {
+      await expect(formsPage.usernameInput).toHaveValue(testData.username);
+      await expect(formsPage.emailInput).toHaveValue(testData.email);
+      await expect(formsPage.passwordInput).toHaveValue(testData.password);
+      await expect(formsPage.termsCheckbox).toBeChecked();
+    });
 
-    await formsPage.emailInput.fill(testData.email);
-    console.log("  ✅ Email заполнен");
-
-    await formsPage.passwordInput.fill(testData.password);
-    console.log("  ✅ Password заполнен");
-
-    await formsPage.countrySelect.selectOption({ label: testData.country });
-    console.log("  ✅ Страна выбрана");
-
-    // ============================================================
-    // БЛОК 5: Проверка корректности заполнения
-    // ============================================================
-    console.log("\n🔍 БЛОК 5: Проверка корректности заполненных данных");
-
-    await expect(formsPage.usernameInput).toHaveValue(testData.username);
-    console.log("  ✅ Username заполнен корректно");
-
-    await expect(formsPage.emailInput).toHaveValue(testData.email);
-    console.log("  ✅ Email заполнен корректно");
-
-    await expect(formsPage.passwordInput).toHaveValue(testData.password);
-    console.log("  ✅ Password заполнен корректно");
-
-    await expect(formsPage.termsCheckbox).toBeChecked();
-    console.log("  ✅ Чекбокс отмечен");
-
-    // ============================================================
-    // БЛОК 6: Отправка формы и проверка результата
-    // ============================================================
-    console.log("\n📤 БЛОК 6: Отправка формы и проверка результата");
-
-    await formsPage.submitForm();
-    console.log("  ⏳ Форма отправлена, ожидаю ответ...");
-
-    // Проверяем сообщение об успехе
-    await expect(formsPage.successMessage).toBeVisible();
-    console.log("  ✅ Сообщение об успешной отправке появилось!");
-
-    // Проверяем, что данные отображаются на странице
-    const pageContent = await page.textContent("body");
-
-    if (pageContent?.includes(testData.username)) {
-      console.log(`  ✅ Username "${testData.username}" найден в ответе`);
-    }
-
-    if (pageContent?.includes(testData.email)) {
-      console.log(`  ✅ Email "${testData.email}" найден в ответе`);
-    }
-
-    // Ждем появления блока результата и делаем визуальную проверку
-    await expect(formsPage.resultBlock).toBeVisible();
-
-    // Визуальная регрессионная проверка - сравнение с эталоном
-    await expect(formsPage.resultBlock).toHaveScreenshot(
-      "form-complete-result.png",
-      {
-        maxDiffPixels: 100, // Допустимо до 100 отличающихся пикселей
-      }
-    );
-    console.log("  📸 Визуальная проверка блока результата выполнена");
-
-    console.log("\n" + "=".repeat(60));
-    console.log(
-      "✅ ТЕСТ ПРОЙДЕН: Форма регистрации работает полностью корректно!"
-    );
-    console.log("   - Все элементы видны и доступны");
-    console.log("   - Выпадающий список стран работает");
-    console.log("   - Чекбокс работает корректно");
-    console.log("   - Все поля заполняются правильно");
-    console.log("   - Форма успешно отправляется");
-    console.log("   - Данные корректно обрабатываются");
-    console.log("=".repeat(60));
+    await test.step("Отправить форму", async () => {
+      await formsPage.submitForm();
+      await test.step("Проверить успешную отправку формы", async () => {
+        await expect(formsPage.successMessage).toBeVisible();
+        const pageContent = await page.textContent("body");
+        await expect(formsPage.resultBlock).toBeVisible();
+        await expect(formsPage.resultBlock).toHaveScreenshot(
+          "form-complete-result.png",
+          {
+            maxDiffPixels: 100,
+          }
+        );
+      });
+    });
   });
   /**
    * Тест негативного сценария: отправка формы без заполнения
@@ -199,106 +106,113 @@ test.describe("📝 Формы и Inputs", () => {
    * - В ответе приходят пустые значения для незаполненных полей
    * - Данные содержат пустые строки для обязательных полей
    */
-  test("Регистрация без заполнения полей", async ({ page }) => {
+  test("Форма ввода.Без валидации.Регистрация без заполнения полей", async ({
+    page,
+  }) => {
     const formsPage = new FormsPage(page);
 
-    console.log("🚀 Начинаю тест: Отправка пустой формы");
-    console.log("=".repeat(60));
+    await test.step("Открыть страницу с формой", async () => {
+      await formsPage.goto();
+    });
 
-    // Открываем страницу
-    console.log("\n📖 Шаг 1: Открываю страницу с формой");
-    await formsPage.goto();
+    await test.step("Оставить все поля пустыми", async () => {
+      // НЕ заполняем поля - оставляем их пустыми
+    });
 
-    // НЕ заполняем поля - оставляем их пустыми
-    console.log("\n⚠️  Шаг 2: Оставляю все поля пустыми (не заполняю форму)");
-    console.log("  📝 Username: (пусто)");
-    console.log("  📝 Email: (пусто)");
-    console.log("  📝 Password: (пусто)");
-    console.log("  📝 Country: (не выбрана)");
-    console.log("  📝 Terms: (не отмечен)");
+    await test.step("Отправить пустую форму", async () => {
+      await formsPage.submitForm();
+      await test.step("Проверить, что форма отправлена", async () => {
+        await expect(formsPage.successMessage).toBeVisible();
+      });
+    });
 
-    // Отправляем пустую форму
-    console.log("\n📤 Шаг 3: Отправляю пустую форму");
-    await formsPage.submitForm();
-
-    // Проверяем, что форма все равно отправилась
-    console.log("\n✅ Шаг 4: Проверяю, что форма отправлена");
-    await expect(formsPage.successMessage).toBeVisible();
-    console.log("  ✅ Сообщение об успешной отправке появилось");
-
-    // Проверяем, что в данных пустые значения
-    console.log("\n🔍 Шаг 5: Проверяю отправленные данные");
-    const pageContent = await page.textContent("body");
-
-    // Проверяем, что данные содержат пустые значения
-    if (pageContent) {
-      console.log("  📊 Содержимое ответа:");
-
-      // Ищем JSON с данными в ответе
-      const dataMatch = pageContent.match(/Данные:\s*(\{[^}]+\})/);
-      if (dataMatch) {
-        const dataString = dataMatch[1];
-        console.log(`  ${dataString}`);
-
-        // Проверяем, что username пустой
-        if (
-          dataString.includes('"username": ""') ||
-          dataString.includes('"username":""')
-        ) {
-          console.log("  ✅ Username пустой");
-        } else {
-          console.log("  ⚠️  Username содержит значение");
-        }
-
-        // Проверяем, что email пустой
-        if (
-          dataString.includes('"email": ""') ||
-          dataString.includes('"email":""')
-        ) {
-          console.log("  ✅ Email пустой");
-        } else {
-          console.log("  ⚠️  Email содержит значение");
-        }
-
-        // Проверяем, что password пустой
-        if (
-          dataString.includes('"password": ""') ||
-          dataString.includes('"password":""')
-        ) {
-          console.log("  ✅ Password пустой");
-        } else {
-          console.log("  ⚠️  Password содержит значение");
-        }
-
-        // Проверяем country
-        const countryMatch = dataString.match(/"country":\s*"([^"]*)"/);
-        if (countryMatch) {
-          const countryValue = countryMatch[1];
-          console.log(
-            `  📍 Country: "${countryValue}" ${
-              countryValue === "" ? "(пусто ✅)" : ""
-            }`
-          );
+    await test.step("Проверить отправленные данные", async () => {
+      const pageContent = await page.textContent("body");
+      if (pageContent) {
+        const dataMatch = pageContent.match(/Данные:\s*(\{[^}]+\})/);
+        if (dataMatch) {
+          const dataString = dataMatch[1];
         }
       }
-    }
-
-    // Ждем появления блока результата и делаем визуальную проверку
-    await expect(formsPage.resultBlock).toBeVisible();
-
-    // Визуальная регрессионная проверка - сравнение с эталоном
-    await expect(formsPage.resultBlock).toHaveScreenshot(
-      "form-empty-result.png",
-      {
-        maxDiffPixels: 100, // Допустимо до 100 отличающихся пикселей
-      }
-    );
-    console.log(
-      "\n📸 Визуальная проверка блока результата пустой формы выполнена"
-    );
-
-    console.log("\n" + "=".repeat(60));
-    console.log("✅ ТЕСТ ПРОЙДЕН: Пустая форма отправлена с пустыми данными!");
-    console.log("=".repeat(60));
+      await expect(formsPage.resultBlock).toBeVisible();
+      await expect(formsPage.resultBlock).toHaveScreenshot(
+        "form-empty-result.png",
+        {
+          maxDiffPixels: 100,
+        }
+      );
+    });
+  });
+  test("Форма ввода.C валидацией.Регистрация с корректными данными", async ({
+    page,
+  }) => {
+    const formsPage = new FormsPage(page);
+    await test.step("Открыть страницу", async () => {
+      await formsPage.goto();
+      await test.step("На странице присутствует форма регистрации с валидацией", async () => {
+        await expect(formsPage.submitValidatedButton).toBeVisible();
+      });
+    });
+    await test.step("Заполнить форму корректными данными", async () => {
+      await formsPage.usernameValidatedInput.fill("testingit");
+      await formsPage.emailValidatedInput.fill("test@test.com");
+      await formsPage.passwordValidatedInput.fill("testingit1");
+      await formsPage.passwordConfirmValidatedInput.fill("testingit1");
+    });
+    await test.step("Нажать на кнопку подтверждения", async () => {
+      await formsPage.submitValidatedButton.click();
+      await test.step("Форма отправлена успешно", async () => {
+        await expect(formsPage.validationResult).toHaveScreenshot(
+          "validation-form-complete-result.png",
+          {}
+        );
+      });
+    });
+  });
+  test("Форма ввода.C валидацией. Регистрация с некорректными данными. Проверка валидации формы", async ({
+    page,
+  }) => {
+    const formsPage = new FormsPage(page);
+    await test.step("Открыть страницу", async () => {
+      await formsPage.goto();
+      await test.step("На странице присутствует форма регистрации с валидацией", async () => {
+        await expect(formsPage.submitValidatedButton).toBeVisible();
+      });
+    });
+    await test.step("Заполнить поле username некорректными данными", async () => {
+      await formsPage.usernameValidatedInput.fill("test");
+    });
+    await test.step("Заполнить поле email некорректными данными", async () => {
+      await formsPage.emailValidatedInput.fill("testtest.com");
+    });
+    await test.step("Заполнить поле password некорректными данными", async () => {
+      await formsPage.passwordValidatedInput.fill("testingit");
+    });
+    await test.step("Заполнить поле passwordConfirm некорректными данными", async () => {
+      await formsPage.passwordConfirmValidatedInput.fill("testing");
+    });
+    await test.step("Нажать на кнопку подтверждения", async () => {
+      await formsPage.submitValidatedButton.click();
+      await test.step("Отображается сообщение об ошибке", async () => {
+        await expect(formsPage.validationResult).toHaveScreenshot(
+          "form-validation-error.png",
+          {}
+        );
+      });
+      await test.step("Отображается валидация поля username", async () => {
+        await expect(formsPage.usernameValidatedErrorMessage).toBeVisible();
+      });
+      await test.step("Отображается валидация поля email", async () => {
+        await expect(formsPage.emailValidatedErrorMessage).toBeVisible();
+      });
+      await test.step("Отображается валидация поля password", async () => {
+        await expect(formsPage.passwordValidatedErrorMessage).toBeVisible();
+      });
+      await test.step("Отображается валидация поля passwordConfirm", async () => {
+        await expect(
+          formsPage.passwordConfirmValidatedErrorMessage
+        ).toBeVisible();
+      });
+    });
   });
 });

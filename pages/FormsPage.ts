@@ -16,9 +16,19 @@ export class FormsPage {
   readonly countrySelect: Locator;
   readonly termsCheckbox: Locator;
   readonly submitButton: Locator;
+  readonly submitValidatedButton: Locator;
   readonly successMessage: Locator;
   readonly formData: Locator;
   readonly resultBlock: Locator;
+  readonly usernameValidatedInput: Locator;
+  readonly usernameValidatedErrorMessage: Locator;
+  readonly emailValidatedErrorMessage: Locator;
+  readonly passwordValidatedErrorMessage: Locator;
+  readonly passwordConfirmValidatedErrorMessage: Locator;
+  readonly emailValidatedInput: Locator;
+  readonly passwordValidatedInput: Locator;
+  readonly passwordConfirmValidatedInput: Locator;
+  readonly validationResult: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -33,18 +43,28 @@ export class FormsPage {
     this.emailInput = page.getByTestId("reg-email");
     this.passwordInput = page.getByTestId("reg-password");
     this.countrySelect = page.getByTestId("reg-country");
+    this.usernameValidatedInput = page.getByTestId("val-username");
+    this.emailValidatedInput = page.getByTestId("val-email");
+    this.passwordValidatedInput = page.getByTestId("val-password");
+    this.passwordConfirmValidatedInput = page.getByTestId("val-confirm");
+    
+    this.usernameValidatedErrorMessage = page.locator("#val-username-msg");
+    this.emailValidatedErrorMessage = page.locator("#val-email-msg");
+    this.passwordValidatedErrorMessage = page.locator("#val-password-msg");
+    this.passwordConfirmValidatedErrorMessage = page.locator("#val-confirm-msg");
 
     // Чекбокс согласия с условиями (используем data-testid)
     this.termsCheckbox = page.getByTestId("reg-terms");
 
-    // Кнопка отправки (первая кнопка регистрации на странице)
-    this.submitButton = page
-      .getByRole("button", { name: /зарегистрироваться/i })
-      .first();
+    // Кнопка отправки 
+    this.submitButton = page.getByTestId("reg-submit");
+    this.submitValidatedButton = page.getByTestId("val-submit");
+
 
     // Сообщение об успехе
     this.successMessage = page.locator("text=Форма отправлена!").first();
     this.formData = page.locator("text=/Данные:.*}/").first();
+    this.validationResult= page.locator('#val-result');
 
     // Блок с результатом отправки формы
     this.resultBlock = page.locator("#reg-result");
