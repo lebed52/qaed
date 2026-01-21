@@ -103,7 +103,7 @@ function addField(type) {
                  type === "email" ? "email@example.com" : "+7 (999) 123-45-67"
                }" 
                data-testid="${type}-${count}">
-        <button type="button" class="btn-remove" onclick="removeField('${type}-${count}')">✕</button>
+        <button type="button" class="btn-remove" data-testid="remove-${type}-${count}" onclick="removeField('${type}-${count}')">✕</button>
     `;
   container.appendChild(div);
 }

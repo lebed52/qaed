@@ -26,7 +26,8 @@ export default defineConfig({
   // Настройки для всех тестов
   use: {
     // Базовый URL для тестов - QA Sandbox
-    baseURL: "https://testingit.ru",
+    // Можно переопределить через переменную окружения BASE_URL
+    baseURL: process.env.BASE_URL || "https://testingit.ru",
 
     // Записывать trace ВСЕГДА (для обучения)
     // Варианты: 'on' | 'off' | 'retain-on-failure' | 'on-first-retry'

@@ -48,7 +48,11 @@ export class QASandboxPage {
    * Использует baseURL из playwright.config.ts
    */
   async goto() {
-    await this.page.goto("/");
+    // Для локальной версии используем /sandbox/
+    // Для продакшн версии используем /
+    const isLocal = process.env.BASE_URL?.includes('localhost');
+    const path = isLocal ? '/sandbox/' : '/';
+    await this.page.goto(path);
     await this.page.waitForLoadState("networkidle");
   }
 

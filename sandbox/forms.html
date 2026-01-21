@@ -149,7 +149,7 @@
       </div>
 
       <!-- Exercise 3: Dynamic Form -->
-      <div class="exercise" data-difficulty="hard">
+      <div class="exercise" data-difficulty="hard" data-testid="dynamic-form">
         <div class="exercise-header">
           <h3>3. Динамическая форма</h3>
           <span class="difficulty hard">Hard</span>
@@ -188,6 +188,7 @@
               <button
                 type="button"
                 class="btn-remove"
+                data-testid="remove-email-0"
                 onclick="removeField('email-0')"
               >
                 ✕
@@ -215,6 +216,7 @@
               <button
                 type="button"
                 class="btn-remove"
+                data-testid="remove-phone-0"
                 onclick="removeField('phone-0')"
               >
                 ✕
@@ -229,7 +231,7 @@
             📤 Отправить форму
           </button>
         </form>
-        <div id="dyn-result" class="result-box hidden"></div>
+        <div id="dyn-result" class="result-box hidden" data-testid="dyn-result"></div>
       </div>
     </main>
 

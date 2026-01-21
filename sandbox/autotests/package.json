@@ -8,8 +8,13 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
+    "test:local": "BASE_URL=http://localhost:8000 playwright test",
+    "test:local:headed": "BASE_URL=http://localhost:8000 playwright test --headed",
+    "test:local:debug": "BASE_URL=http://localhost:8000 playwright test --debug",
+    "test:local:ui": "BASE_URL=http://localhost:8000 playwright test --ui",
     "report": "playwright show-report",
-    "codegen": "playwright codegen"
+    "codegen": "playwright codegen",
+    "codegen:local": "BASE_URL=http://localhost:8000 playwright codegen http://localhost:8000/sandbox/forms.html"
   },
   "keywords": [
     "playwright",
@@ -23,6 +28,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3",
     "typescript": "^5.9.3"
   }
 }

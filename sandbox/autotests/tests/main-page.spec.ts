@@ -36,11 +36,16 @@ test.describe("🎭 Главная страница QA Sandbox", () => {
     });
 
     await test.step("Проверить URL страницы", async () => {
-      expect(page.url()).toContain("testingit.ru");
+      // Проверяем, что URL содержит либо testingit.ru (продакшн) либо localhost (локально)
+      const url = page.url();
+      expect(url).toMatch(/testingit\.ru|localhost/);
     });
 
     await test.step("Проверить заголовок страницы", async () => {
-      await expect(page).toHaveTitle(/QA Sandbox|Песочница|testingit/i);
+      // Проверяем title для обоих окружений:
+      // - Продакшн: "QA Sandbox" или "testingit"
+      // - Локально: "Песочница Автоматизатора"
+      await expect(page).toHaveTitle(/QA Sandbox|Песочница|testingit|Автоматизатора/i);
     });
 
     await test.step("Проверить наличие заголовка на странице", async () => {

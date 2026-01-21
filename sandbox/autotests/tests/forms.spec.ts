@@ -215,4 +215,77 @@ test.describe("📝 Формы и Inputs", () => {
       });
     });
   });
+  test("Форма ввода.Форма с динамическим добавлением и удалением полей. Добавление и удаление полей", async ({
+    page,
+  }) => {
+    const formsPage = new FormsPage(page);
+    const emailInput = await page.getByTestId("email-2");
+    const phoneInput = await page.getByTestId("phone-2");
+
+    await test.step("Открыть страницу", async () => {
+      await formsPage.goto();
+      await test.step("На странице присутствует форма с динамическим добавлением и удалением полей", async () => {
+        await expect(formsPage.dynamicForm).toBeVisible();
+      });
+    });
+    await test.step("Заполнить поле name", async () => {
+      await formsPage.dynNameInput.fill("testingit");
+    });
+    await test.step("Заполнить поле email", async () => {
+      await formsPage.dynEmailInput.fill("test@test.com");
+    });
+
+    await test.step("Нажать на кнопку добавления поля email", async () => {
+      await formsPage.addDynEmailButton.click();
+
+      await test.step("Поле email добавлено", async () => {
+        await expect(emailInput).toBeVisible();
+      });
+    });
+    await test.step("Заполнить новое поле email", async () => {
+      await emailInput.fill("test1@test.com");
+    });
+    await test.step("Заполнить поле phone", async () => {
+      await formsPage.dynPhoneInput.fill("+79991234567");
+    });
+    await test.step("Нажать на кнопку добавления поля phone", async () => {
+      await formsPage.addDynPhoneButton.click();
+      await test.step("Поле phone добавлено", async () => {
+        await expect(phoneInput).toBeVisible();
+      });
+    });
+    await test.step("Заполнить новое поле phone", async () => {
+      await phoneInput.fill("+79991267890");
+    });
+    await test.step("Нажать на кнопку подтверждения", async () => {
+      await formsPage.dynSubmitButton.click();
+      await test.step("Форма отправлена успешно", async () => {
+        await expect(formsPage.dynResult).toHaveScreenshot(
+          "dynamic-form-complete-result-with-fields.png",
+          {}
+        );
+      });
+    });
+    await test.step("Удалить поле email", async () => {
+      await formsPage.removeDynEmailButton.click();
+      await test.step("Поле email удалено", async () => {
+        await expect(formsPage.dynEmailInput).not.toBeVisible();
+      });
+    });
+    await test.step("Удалить поле phone", async () => {
+      await formsPage.removeDynPhoneButton.click();
+      await test.step("Поле phone удалено", async () => {
+        await expect(formsPage.dynPhoneInput).not.toBeVisible();
+      });
+    });
+    await test.step("Нажать на кнопку подтверждения", async () => {
+      await formsPage.dynSubmitButton.click();
+      await test.step("Форма отправлена успешно", async () => {
+        await expect(formsPage.dynResult).toHaveScreenshot(
+          "dynamic-form-complete-result-without-fields.png",
+          {}
+        );
+      });
+    });
+  });
 });

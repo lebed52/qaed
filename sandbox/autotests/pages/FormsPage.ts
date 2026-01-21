@@ -29,6 +29,16 @@ export class FormsPage {
   readonly passwordValidatedInput: Locator;
   readonly passwordConfirmValidatedInput: Locator;
   readonly validationResult: Locator;
+  readonly dynamicForm: Locator;
+  readonly addDynEmailButton: Locator;
+  readonly removeDynEmailButton: Locator;
+  readonly removeDynPhoneButton: Locator;
+  readonly dynSubmitButton: Locator;
+  readonly dynResult: Locator;
+  readonly dynNameInput: Locator;
+  readonly dynEmailInput: Locator;
+  readonly dynPhoneInput: Locator;
+  readonly addDynPhoneButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -43,15 +53,26 @@ export class FormsPage {
     this.emailInput = page.getByTestId("reg-email");
     this.passwordInput = page.getByTestId("reg-password");
     this.countrySelect = page.getByTestId("reg-country");
+    //форма с валидацией
     this.usernameValidatedInput = page.getByTestId("val-username");
     this.emailValidatedInput = page.getByTestId("val-email");
     this.passwordValidatedInput = page.getByTestId("val-password");
     this.passwordConfirmValidatedInput = page.getByTestId("val-confirm");
-    
     this.usernameValidatedErrorMessage = page.locator("#val-username-msg");
     this.emailValidatedErrorMessage = page.locator("#val-email-msg");
     this.passwordValidatedErrorMessage = page.locator("#val-password-msg");
     this.passwordConfirmValidatedErrorMessage = page.locator("#val-confirm-msg");
+    //форма с динамическим добавлением и удалением полей
+    this.dynNameInput = page.getByTestId("dyn-name");
+    this.dynEmailInput = page.getByTestId("email-0");
+    this.dynPhoneInput = page.getByTestId("phone-0");
+    this.dynamicForm = page.getByTestId("dynamic-form");
+    this.addDynPhoneButton = page.getByTestId("add-phone");
+    this.addDynEmailButton = page.getByTestId("add-email");
+    this.removeDynEmailButton = page.getByTestId("remove-email-0");
+    this.removeDynPhoneButton = page.getByTestId("remove-phone-0");
+    this.dynSubmitButton = page.getByTestId("dyn-submit");
+    this.dynResult = page.getByTestId("dyn-result");
 
     // Чекбокс согласия с условиями (используем data-testid)
     this.termsCheckbox = page.getByTestId("reg-terms");
@@ -74,7 +95,11 @@ export class FormsPage {
    * Открывает страницу с формами
    */
   async goto() {
-    await this.page.goto("/forms");
+    // Для локальной версии используем /sandbox/forms.html
+    // Для продакшн версии используем /forms
+    const isLocal = process.env.BASE_URL?.includes('localhost');
+    const path = isLocal ? '/sandbox/forms.html' : '/forms';
+    await this.page.goto(path);
     await this.page.waitForLoadState("networkidle");
   }
 
