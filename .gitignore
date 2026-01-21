@@ -5,6 +5,7 @@
 .DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 
 # Python
 __pycache__/
@@ -30,6 +31,20 @@ test-results/
 playwright-report/
 playwright/.cache/
 
+# Screenshots (кроме эталонных)
+*.png
+!tests/**/*-snapshots/*.png
+
+# Videos
+*.webm
+
+# Traces
+*.zip
+
+# Environment variables
+.env
+.env.local
+
 # IDEs
 .vscode/
 .idea/
@@ -40,13 +55,3 @@ playwright/.cache/
 # Logs
 *.log
 logs/
-
-
-
-
-
-
-
-
-
-
