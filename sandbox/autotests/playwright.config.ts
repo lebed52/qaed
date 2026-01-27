@@ -9,7 +9,7 @@ export default defineConfig({
   testDir: "./tests",
 
   // Настройка имен скриншотов (убираем платформу darwin/linux)
-  snapshotPathTemplate: "{testDir}/{testFile}-snapshots/{arg}{-projectName}{ext}",
+  snapshotPathTemplate: "{testDir}/{testFileName}-snapshots/{arg}{-projectName}{ext}",
 
   // Таймаут для каждого теста (30 секунд)
   timeout: 30 * 1000,
