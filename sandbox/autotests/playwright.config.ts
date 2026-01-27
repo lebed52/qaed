@@ -11,6 +11,15 @@ export default defineConfig({
   // Настройка имен скриншотов (убираем платформу darwin/linux)
   snapshotPathTemplate: "{testDir}/{testFileName}-snapshots/{arg}{-projectName}{ext}",
 
+  // Глобальные настройки для expect
+  expect: {
+    toHaveScreenshot: {
+      // Допустимый порог расхождения в пикселях (5% от площади)
+      // Это помогает избегать падений из-за разного рендеринга шрифтов на Mac и Linux
+      maxDiffPixelRatio: 0.05,
+    },
+  },
+
   // Таймаут для каждого теста (30 секунд)
   timeout: 30 * 1000,
 

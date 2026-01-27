@@ -90,10 +90,7 @@ test.describe("📝 Формы и Inputs", () => {
         const pageContent = await page.textContent("body");
         await expect(formsPage.resultBlock).toBeVisible();
         await expect(formsPage.resultBlock).toHaveScreenshot(
-          "form-complete-result.png",
-          {
-            maxDiffPixels: 100,
-          }
+          "form-complete-result.png"
         );
       });
     });
@@ -136,10 +133,7 @@ test.describe("📝 Формы и Inputs", () => {
       }
       await expect(formsPage.resultBlock).toBeVisible();
       await expect(formsPage.resultBlock).toHaveScreenshot(
-        "form-empty-result.png",
-        {
-          maxDiffPixels: 100,
-        }
+        "form-empty-result.png"
       );
     });
   });
