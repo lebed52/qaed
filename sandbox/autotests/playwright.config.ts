@@ -27,7 +27,7 @@ export default defineConfig({
   use: {
     // Базовый URL для тестов - QA Sandbox
     // Можно переопределить через переменную окружения BASE_URL
-    baseURL: process.env.BASE_URL || "https://testingit.ru",
+    baseURL: process.env.BASE_URL || "http://localhost:8000",
 
     // Записывать trace ВСЕГДА (для обучения)
     // Варианты: 'on' | 'off' | 'retain-on-failure' | 'on-first-retry'
@@ -59,4 +59,13 @@ export default defineConfig({
     //   use: { ...devices['Desktop Safari'] },
     // },
   ],
+
+  /* Запуск локального сервера перед тестами */
+  webServer: {
+    command: "npx http-server .. -p 8000",
+    url: "http://localhost:8000",
+    reuseExistingServer: !process.env.CI,
+    stdout: "pipe",
+    stderr: "pipe",
+  },
 });
