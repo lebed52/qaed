@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выходной 2026</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Выходной 2026</h1>
+        
+        <div class="input-group">
+            <div class="date-input-wrapper">
+                <input 
+                    type="text" 
+                    id="dateInput" 
+                    class="date-input"
+                >
+                <span class="error-message" id="errorMessage">Неверный формат ввода</span>
+            </div>
+            <button class="check-button" id="checkButton">Узнать</button>
+        </div>
+        
+        <div class="history-section" id="historySection">
+            <h3 class="history-title">История введенных значений:</h3>
+            <div class="history-list" id="historyList"></div>
+            <button class="clear-history" id="clearHistory">Очистить историю</button>
+        </div>
+    </div>
+
+    <!-- Попап -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <div class="popup-content">
+                <p class="popup-text" id="popupText"></p>
+                <button class="popup-close" id="popupClose">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
